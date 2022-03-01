@@ -1,0 +1,204 @@
+{
+  "books": [
+    {
+      "name": "Agile Web Development with Rails",
+      "author": "Sam Ruby, Dave Thomas, David Heinemeier Hansson"
+    },
+    {
+      "name": "Flask Web Development",
+      "author": "Miguel Grinberg"
+    },
+    {
+      "name": "Agile web development with rails: a Pragmatic guide",
+      "author": "Dave Thomas, David Heinemeier Hansson, Leon Breedt, Mike Clark, Thomas Fuchs, Andrea Schwarz"
+    },
+    {
+      "name": "CakePHP Application Development: Step-by-step introduction to rapid web development using the open-source MVC CakePHP framework",
+      "author": "Ahsanul Bari, Anupom Syam"
+    },
+    {
+      "name": "Alex Homer, ASP.NET 2.0 Visual Web Developer 2005",
+      "author": "David Sussman"
+    },
+    {
+      "name": "PHP Oracle Web Development: Data processing, Security, Caching, XML, Web Services, and Ajax: A practical guide to combining the power, performance, scalability, ... time, and high performance of PHP",
+      "author": "Yuli Vasiliev"
+    },
+    {
+      "name": "WordPress for Web Developers: An Introduction for Web Professionals",
+      "author": "Stephanie Leary (auth.)"
+    },
+    {
+      "name": "MODx Web Development",
+      "author": "Antano Solar John, Antano Solar John"
+    },
+    {
+      "name": "Grok 1.0 Web Development",
+      "author": "Carlos de la Guardia"
+    },
+    {
+      "name": "Professional JavaScript for Web Developers",
+      "author": "Nicholas C. Zakas"
+    },
+    {
+      "name": "Art of Java Web Development: Struts, Tapestry, Commons, Velocity, JUnit, Axis, Cocoon, InternetBeans, WebWork",
+      "author": "Neal Ford"
+    },
+    {
+      "name": "Agile.Web.Development.with.Rails.4th.Edition",
+      "author": "the pragmatic programmers"
+    },
+    {
+      "name": "Beginning CSS Web Development: From Novice to Professional",
+      "author": "Simon Collison"
+    },
+    {
+      "name": "Beginning PHP 6, Apache, MySQL 6 Web Development",
+      "author": "Timothy Boronczyk"
+    },
+    {
+      "name": "Web development solutions : Ajax, APIs, libraries, and hosted services made easy",
+      "author": "Christian Heilmann; Mark Norman Francis"
+    },
+    {
+      "name": "Instant Web Scraping with Java",
+      "author": "Ryan Mitchell"
+    },
+    {
+      "name": "Beginning Smartphone Web Development: Building Javascript, CSS, HTML and Ajax-Based Applications for iPhone, Android, Palm Pre, Blackberry, Windows Mobile and Nokia S60",
+      "author": "Gail Frederick, Rajesh Lal"
+    },
+    {
+      "name": "Full Stack Web Development with Backbone.js",
+      "author": "Patrick Mulder"
+    },
+    {
+      "name": "The Microsoft Expression Web Developer's Guide to ASP.NET 3.5: Learn to create ASP.NET applications using Visual Web Developer 2008",
+      "author": "Jim Cheshire"
+    },
+    {
+      "name": "Tapestry 5: Building Web Applications: A step-by-step guide to Java Web development with the developer-friendly Apache Tapestry framework",
+      "author": "Alexander Kolesnikov"
+    },
+    {
+      "name": "Tapestry 5: Building Web Applications: A step-by-step guide to Java Web development with the developer-friendly Apache Tapestry framework",
+      "author": "Alexander Kolesnikov"
+    },
+    {
+      "name": "PHP 5 Fast and Easy Web Development (Fast and Easy Web Development)",
+      "author": "Julie C. Meloni"
+    },
+    {
+      "name": "Macromedia Flash MX 2004 Fast & Easy Web Development (Fast & Easy Web Development)",
+      "author": "Lisa A. Bucki"
+    },
+    {
+      "name": "PHP Fast & Easy Web Development, 2nd Edition (Fast & Easy Web Development)",
+      "author": "Julie C. Meloni"
+    },
+    {
+      "name": "Perl Fast & Easy Web Development (Fast & Easy Web Development)",
+      "author": "Leslie W. Bate"
+    },
+    {
+      "name": "PHP Oracle web development : data processing, security, caching, XML, web services and AJAX : a practical guide to combining the power, performance, scalability, and reliability of Oracle Database with the ease of use, short development time, and high per",
+      "author": "Yuli Vasiliev"
+    },
+    {
+      "name": "PHP Oracle Web Development: Data processing, Security, Caching, XML, Web Services, and Ajax: A practical guide to combining the power, performance, ... development time, and high performance of PHP",
+      "author": "Yuli Vasiliev"
+    },
+    {
+      "name": ".NET Mobile Web Developers Guide. Web Developer's Guide",
+      "author": "Steve Milroy, Ken Cox, Doug Safford, Laura Barker, Amit Kalani and Wei Meng Lee (Auth.)"
+    },
+    {
+      "name": "Tapestry 5: Building Web Applications: A step-by-step guide to Java Web development with the developer-friendly Apache Tapestry framework",
+      "author": "Alexander Kolesnikov"
+    },
+    {
+      "name": "Learn Java for Web Development: Modern Java Web Development",
+      "author": "Vishal Layka"
+    },
+    {
+      "name": "Flask Web Development: Developing Web Applications with Python",
+      "author": "Miguel Grinberg"
+    },
+    {
+      "name": "Flask Web Development: Developing Web Applications with Python",
+      "author": "Miguel Grinberg"
+    },
+    {
+      "name": "Developing Web Apps with Haskell and Yesod: Safety-Driven Web Development",
+      "author": "Michael Snoyman"
+    },
+    {
+      "name": "Developing Web Apps with Haskell and Yesod: Safety-Driven Web Development",
+      "author": "Michael Snoyman"
+    },
+    {
+      "name": "Web Design for Developers: A Programmer's Guide to Design Tools and Techniques (The Pragmatic Programmers)",
+      "author": "Brian P. Hogan"
+    },
+    {
+      "name": "PHPEclipse: A User Guide: Take advantage of the leading open source integrated development environment to develop, organize, and debug your PHP web development projects.",
+      "author": "Shu-Wai Chow"
+    },
+    {
+      "name": "GIS for Web Developers: Adding Where to Your Web Applications",
+      "author": "Scott Davis"
+    },
+    {
+      "name": "Moodle. E-Learning Course Development",
+      "author": "William Rice"
+    },
+    {
+      "name": "Spring Web Flow 2 Web Development",
+      "author": "Sven Lüppken, Markus Stäuble"
+    },
+    {
+      "name": "Catalyst - Accelerating Perl Web Application Development",
+      "author": "Jonathan Rockway"
+    },
+    {
+      "name": "Spring Web Flow 2 Web Development",
+      "author": "Sven Lüppken, Markus Stäuble"
+    },
+    {
+      "name": "GIS for Web Developers: Adding 'Where' to Your Web Applications",
+      "author": "Scott Davis"
+    },
+    {
+      "name": "Even Faster Web Sites: Performance Best Practices for Web Developers",
+      "author": "Steve Souders"
+    },
+    {
+      "name": "Spring Web Flow 2 Web Development",
+      "author": "Sven Lüppken, Markus Stäuble"
+    },
+    {
+      "name": "Developing Large Web Applications: Producing Code That Can Grow and Thrive",
+      "author": "Kyle Loudon"
+    },
+    {
+      "name": "Even Faster Web Sites: Performance Best Practices for Web Developers",
+      "author": "Steve Souders"
+    },
+    {
+      "name": "Even Faster Web Sites: Performance Best Practices for Web Developers",
+      "author": "Steve Souders"
+    },
+    {
+      "name": "Spring Web Flow 2 Web Development",
+      "author": "Sven Luppken, Markus Stauble"
+    },
+    {
+      "name": "Communicating Design: Developing Web Site Documentation for Design and Planning (2nd Edition) (Voices That Matter)",
+      "author": "Dan M. Brown"
+    },
+    {
+      "name": "Weaving a Library Web: A Guide to Developing Children's Websites",
+      "author": "Helene Blowers"
+    }
+  ]
+}
