@@ -1,56 +1,42 @@
 package main
 
 import (
-	"encoding/json"
-	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"package.local/hktn/helper"
 )
 
-var choice int
-var reset string
-var searchWord string
-var counter int
-var book_list []Book
-var book_id int = 0
-var selected_book_id int
-var number_of_purchases int
-var selected_book *Book
-var selected_slice_index int
+var (
+	bookList   helper.BookList
+	reset      string
+	searchWord string
+	counter    int
+)
 
-var ErrNotEnoughStock = errors.New("Yeterli stok bulunmamaktadır")
-var ErrZeroValue = errors.New("0 dan büyük bir değer giriniz")
-var ErrNotAuthorized = errors.New("Kitap zaten silinmiş")
-
-const max_page int = 1000
-const min_page int = 25
-const max_year int = 2022
-const min_year int = 1970
-const max_price float64 = 10.05
-const min_price float64 = 155.83
-const max_quantity int = 20
-const min_quantity int = 0
-
-const searchChoice int = 1
-const listAllChoice int = 2
-const buyChoice int = 3
-const deleteChoice int = 4
-const exitChoice int = 5
-const upperResetChoice string = "R"
-const lowerResetChoice string = "r"
-const wrongChoice string = "Yanlış seçim. Tekrar deneyiniz"
-const notFoundChoice string = "Kitap bulunamadı. Tekrar deneyiniz"
-const booksJsonPath string = "books.json"
+const (
+	searchChoice   int    = 1
+	listAllChoice  int    = 2
+	buyChoice      int    = 3
+	deleteChoice   int    = 4
+	exitChoice     int    = 5
+	resetChoice    string = "r"
+	wrongChoice    string = "Yanlış seçim. Tekrar deneyiniz"
+	notFoundChoice string = "Kitap bulunamadı. Tekrar deneyiniz"
+)
 
 func init() {
 
-	initializeJsonBook()
+	bookList = helper.InitializeBookList()
 }
 
 func main() {
+
+	printUsage()
+}
+
+// uygulama seçimlerinin ekranada gösterildiği ve yapıldığı yer
+func printUsage() {
 
 	fmt.Println("Kitaplık uygulamasında kullanabileceğiniz komutlar :")
 	fmt.Printf(" search => arama işlemi için %d\n", searchChoice)
@@ -59,6 +45,8 @@ func main() {
 	fmt.Printf(" delete => kitap silmek için %d\n", deleteChoice)
 	fmt.Printf(" exit => uygulamadan çıkmak için %d\n", exitChoice)
 	fmt.Println("Tuşlarına basınız")
+
+	var choice int
 
 	fmt.Scan(&choice)
 
@@ -77,7 +65,7 @@ func main() {
 		helper.AddSeparator()
 		fmt.Println(wrongChoice)
 		helper.AddSeparator()
-		main()
+		printUsage()
 	}
 }
 
@@ -86,28 +74,40 @@ func deleteBook() {
 
 	fmt.Println("Silmek İstediğiniz Kitap Id Giriniz : ")
 
-	if _, err := fmt.Scan(&selected_book_id); err != nil {
+	var selectedBookId int
+
+	if _, err := fmt.Scan(&selectedBookId); err != nil {
 		fmt.Println(wrongChoice)
 		helper.AddSeparator()
 		deleteBook()
 	}
 
-	if !checkIdExist() {
+	if !checkIdExist(selectedBookId) {
 		fmt.Println(notFoundChoice)
 		deleteBook()
 	}
 
-	err := selected_book.Delete()
+	var book, _, err = bookList.GetBookById(selectedBookId)
 
+	errorCheck(err)
+
+	err = bookList.Delete(book.Id)
+
+	errorCheck(err)
+
+	fmt.Println("Kitap silinmiştir")
+	helper.AddSeparator()
+	conclude()
+
+}
+
+// hata kontrol
+func errorCheck(err error) {
 	if err != nil {
 		fmt.Println(err.Error())
 		helper.AddSeparator()
 		conclude()
 	}
-
-	fmt.Println("Kitap silinmiştir")
-	helper.AddSeparator()
-	conclude()
 }
 
 // kitap satın alma işlemleri başladı gerekli kontroller
@@ -115,58 +115,63 @@ func buyBook() {
 
 	fmt.Println("Satın Alınacak Kitap Id Giriniz : ")
 
-	if _, err := fmt.Scan(&selected_book_id); err != nil {
+	var selectedBookId int
+
+	if _, err := fmt.Scan(&selectedBookId); err != nil {
 		fmt.Println(wrongChoice)
 		helper.AddSeparator()
 		buyBook()
 	}
 
-	if !checkIdExist() {
+	if !checkIdExist(selectedBookId) {
 		fmt.Println(notFoundChoice)
 		buyBook()
 	}
 
-	purchase()
+	purchase(selectedBookId)
 }
 
 // kitap satın alma işlemleri devam ediyor ve satın alma işlemine yönlendirme
-func purchase() {
+func purchase(bookId int) {
 
 	fmt.Println("Satın Alınacak Kitap Sayısını Giriniz : ")
 
-	if _, err := fmt.Scan(&number_of_purchases); err != nil {
+	var numberOfPurchases int
+
+	if _, err := fmt.Scan(&numberOfPurchases); err != nil {
 		fmt.Println(wrongChoice)
 		helper.AddSeparator()
-		purchase()
+		purchase(bookId)
 	}
 
-	err := selected_book.Buy()
+	var book, _, _ = bookList.GetBookById(bookId)
+
+	err := book.Buy(numberOfPurchases)
 
 	if err != nil {
 		fmt.Println(err.Error())
-		helper.AddSeparator()
-		purchase()
+		purchase(bookId)
 	}
 
 	fmt.Println("Satın alma işlemi sonrası kitap durumu")
-	fmt.Printf("%+v\n", selected_book)
+	fmt.Printf("%+v\n", book)
 	helper.AddSeparator()
 	conclude()
 }
 
 // girilen id de kitap kontrolü ve varsa atanması
-func checkIdExist() bool {
+func checkIdExist(bookId int) bool {
 
-	for i := range book_list {
-		if book_list[i].Id == selected_book_id {
-			selected_book = &book_list[i]
-			selected_slice_index = i
-			fmt.Printf("Seçilen kitap : %+v\n", selected_book)
+	var selectedBook helper.Book
+	for i := range bookList.BookList {
+		if bookList.BookList[i].Id == bookId {
+			selectedBook = bookList.BookList[i]
+			fmt.Printf("Seçilen kitap : %+v\n", selectedBook)
 			helper.AddSeparator()
 			return true
 		}
 	}
-	return false
+	return true
 }
 
 // tüm kitapların listelenmesi
@@ -174,11 +179,11 @@ func listAll() {
 
 	fmt.Println("Kitaplar Getiriliyor..")
 	helper.AddSeparator()
-	for _, line := range book_list {
+	for _, line := range bookList.BookList {
 		fmt.Printf("%+v\n", line)
 	}
 	helper.AddSeparator()
-	fmt.Printf("%d Tane Kitaplar Getirildi..\n", len(book_list))
+	fmt.Printf("%d Tane Kitaplar Getirildi..\n", len(bookList.BookList))
 	helper.AddSeparator()
 	conclude()
 }
@@ -213,10 +218,8 @@ func conclude() {
 
 	fmt.Scan(&reset)
 
-	switch reset {
-	case lowerResetChoice:
-		main()
-	case upperResetChoice:
+	switch helper.StringLower(reset) {
+	case resetChoice:
 		main()
 	default:
 		terminate()
@@ -227,7 +230,7 @@ func conclude() {
 func searchByWord(word string) {
 
 	counter = 0
-	for _, line := range book_list {
+	for _, line := range bookList.BookList {
 		if helper.StringContains(line.Name, word) {
 			counter++
 			fmt.Printf("%+v\n", line)
@@ -244,84 +247,4 @@ func searchByWord(word string) {
 			continue
 		}
 	}
-}
-
-// kitapların yüklenmesi
-func initializeJsonBook() {
-
-	file, _ := ioutil.ReadFile(booksJsonPath)
-
-	data := BookList{}
-
-	_ = json.Unmarshal([]byte(file), &data)
-
-	for i := 0; i < len(data.BookList); i++ {
-		var b Book = fillBookValues(data.BookList[i])
-		book_list = append(book_list, b)
-	}
-}
-
-// book slice oluşturuluyor
-func fillBookValues(db Book) Book {
-
-	book_id++
-	var bf Book
-	bf.Id = book_id
-	bf.Name = db.Name
-	bf.Author = db.Author
-	bf.NumberOfPages = helper.RandomIntegerCreator(min_page, max_page)
-	bf.Year = helper.RandomIntegerCreator(min_year, max_year)
-	bf.Price = helper.RoundFloat(helper.RandomFloatCreator(min_price, max_price))
-	bf.Quantity = helper.RandomIntegerCreator(min_quantity, max_quantity)
-	bf.Sku = helper.CreateSku(db.Name)
-	bf.Isbn = helper.CreateIsbn()
-	bf.IsDeleted = helper.RandomBoolCreator()
-
-	return bf
-}
-
-type BookList struct {
-	BookList []Book `json:"books"`
-}
-
-type Book struct {
-	Id, NumberOfPages, Year, Quantity int
-	Price                             float64
-	Name                              string `json:"name"`
-	Author                            string `json:"author"`
-	Sku, Isbn                         string
-	IsDeleted                         bool
-}
-
-type Deletable interface {
-	Delete()
-}
-
-// satın alma işlemi
-func (b Book) Buy() error {
-
-	if selected_book.Quantity < number_of_purchases {
-		return ErrNotEnoughStock
-	}
-	if 0 == number_of_purchases {
-		return ErrZeroValue
-	}
-	selected_book.Quantity -= number_of_purchases
-	return nil
-}
-
-// silme işlemi
-func (b Book) Delete() error {
-
-	if selected_book.IsDeleted {
-		return ErrNotAuthorized
-	}
-	RemoveBookSliceForIndex(book_list, selected_slice_index)
-	return nil
-}
-
-// slice üzerinden silme
-func RemoveBookSliceForIndex(s []Book, index int) {
-
-	book_list = append(s[:index], s[index+1:]...)
 }

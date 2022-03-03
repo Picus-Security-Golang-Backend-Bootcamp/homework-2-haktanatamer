@@ -59,16 +59,16 @@ func RandomFloatCreator(min, max float64) float64 {
 	return rand.Float64()*(max-min) + min
 }
 
-// Stok kod üretir kitap adı ilk beş karakter - 6 haneli sayı - kitap adı son 5 karakter olacak sekilde
+// Stok kod üretir kitap adı ilk 2 karakter - 6 haneli sayı - kitap adı son 2 karakter olacak sekilde
 func CreateSku(name string) string {
-	first5 := name[0:5]
-	last5 := name[len(name)-5:]
+	first2 := name[0:2]
+	last2 := name[len(name)-2:]
 	var b bytes.Buffer
-	b.WriteString(StringUpper(StringTrim(first5, " ")))
+	b.WriteString(StringUpper(StringTrim(first2, " ")))
 	b.WriteString("-")
 	b.WriteString(strconv.Itoa(RandomIntegerCreator(100000, 999999)))
 	b.WriteString("-")
-	b.WriteString(StringUpper(StringTrim(last5, " ")))
+	b.WriteString(StringUpper(StringTrim(last2, " ")))
 	return b.String()
 }
 
