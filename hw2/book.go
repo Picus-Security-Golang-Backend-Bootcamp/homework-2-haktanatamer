@@ -1,7 +1,9 @@
-package helper
+package main
 
 import (
 	"errors"
+
+	"package.local/hktn/helper"
 )
 
 var (
@@ -133,13 +135,13 @@ func fillBookValues(name, author string) Book {
 	bf.Id = book_id
 	bf.Name = name
 	bf.Author = author
-	bf.NumberOfPages = RandomIntegerCreator(min_page, max_page)
-	bf.Year = RandomIntegerCreator(min_year, max_year)
-	bf.Price = RoundFloat(RandomFloatCreator(min_price, max_price))
-	bf.Quantity = RandomIntegerCreator(min_quantity, max_quantity)
-	bf.Sku = CreateSku(name)
-	bf.Isbn = CreateIsbn()
-	bf.IsDeleted = RandomBoolCreator()
+	bf.NumberOfPages = helper.RandomIntegerCreator(min_page, max_page)
+	bf.Year = helper.RandomIntegerCreator(min_year, max_year)
+	bf.Price = helper.RoundFloat(helper.RandomFloatCreator(min_price, max_price))
+	bf.Quantity = helper.RandomIntegerCreator(min_quantity, max_quantity)
+	bf.Sku = helper.CreateSku(name)
+	bf.Isbn = helper.CreateIsbn()
+	bf.IsDeleted = helper.RandomBoolCreator()
 
 	return bf
 }

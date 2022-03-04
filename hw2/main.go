@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	bookList   helper.BookList
+	bookList   BookList
 	reset      string
 	searchWord string
 	counter    int
@@ -27,7 +27,7 @@ const (
 
 func init() {
 
-	bookList = helper.InitializeBookList()
+	bookList = InitializeBookList()
 }
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	printUsage()
 }
 
-// uygulama seçimlerinin ekranada gösterildiği ve yapıldığı yer
+// uygulama işlemlerinin console basılıyor
 func printUsage() {
 
 	fmt.Println("Kitaplık uygulamasında kullanabileceğiniz komutlar :")
@@ -46,6 +46,11 @@ func printUsage() {
 	fmt.Printf(" exit => uygulamadan çıkmak için %d\n", exitChoice)
 	fmt.Println("Tuşlarına basınız")
 
+	getChoiceFromUser()
+}
+
+// kullanıcının yapmak istediği işlemi seçiyor
+func getChoiceFromUser() {
 	var choice int
 
 	fmt.Scan(&choice)
@@ -118,6 +123,7 @@ func buyBook() {
 	var selectedBookId int
 
 	if _, err := fmt.Scan(&selectedBookId); err != nil {
+
 		fmt.Println(wrongChoice)
 		helper.AddSeparator()
 		buyBook()
@@ -162,7 +168,7 @@ func purchase(bookId int) {
 // girilen id de kitap kontrolü ve varsa atanması
 func checkIdExist(bookId int) bool {
 
-	var selectedBook helper.Book
+	var selectedBook Book
 	for i := range bookList.BookList {
 		if bookList.BookList[i].Id == bookId {
 			selectedBook = bookList.BookList[i]
@@ -171,7 +177,7 @@ func checkIdExist(bookId int) bool {
 			return true
 		}
 	}
-	return true
+	return false
 }
 
 // tüm kitapların listelenmesi
